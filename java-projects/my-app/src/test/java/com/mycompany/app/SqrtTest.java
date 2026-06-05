@@ -42,43 +42,43 @@ class SqrtTest {
     }
 
     @Test
-    void averageReturnsMiddleValue() {
+    void meanReturnsMiddleValue() {
         Sqrt sqrt = new Sqrt(1.0);
-        assertEquals(6.0, sqrt.average(4.0, 8.0), EPS);
+        assertEquals(6.0, sqrt.mean(4.0, 8.0), EPS);
     }
 
     @Test
-    void goodAcceptsCloseGuess() {
+    void isAccurateAcceptsCloseGuess() {
         Sqrt sqrt = new Sqrt(4.0);
-        assertTrue(sqrt.good(2.0, 4.0));
+        assertTrue(sqrt.isAccurate(2.0, 4.0));
     }
 
     @Test
-    void goodRejectsBadGuess() {
+    void isAccurateRejectsBadGuess() {
         Sqrt sqrt = new Sqrt(4.0);
-        assertFalse(sqrt.good(1.0, 4.0));
+        assertFalse(sqrt.isAccurate(1.0, 4.0));
     }
 
     @Test
-    void improveUsesNewtonStep() {
+    void nextApproximationUsesNewtonStep() {
         Sqrt sqrt = new Sqrt(4.0);
-        assertEquals(2.05, sqrt.improve(2.5, 4.0), EPS);
+        assertEquals(2.05, sqrt.nextApproximation(2.5, 4.0), EPS);
     }
 
     @Test
-    void improveHandlesZeroGuess() {
+    void nextApproximationHandlesZeroGuess() {
         Sqrt sqrt = new Sqrt(4.0);
-        assertEquals(1.0, sqrt.improve(0.0, 4.0), EPS);
+        assertEquals(1.0, sqrt.nextApproximation(0.0, 4.0), EPS);
     }
 
     @Test
-    void iterReturnsInitialGuessWhenItIsGood() {
+    void iterReturnsInitialGuessWhenItIsisAccurate() {
         Sqrt sqrt = new Sqrt(9.0);
         assertEquals(3.0, sqrt.iter(3.0, 9.0), EPS);
     }
 
     @Test
-    void iterImprovesBadGuess() {
+    void iternextApproximationsBadGuess() {
         Sqrt sqrt = new Sqrt(16.0);
         assertEquals(4.0, sqrt.iter(1.0, 16.0), EPS);
     }
