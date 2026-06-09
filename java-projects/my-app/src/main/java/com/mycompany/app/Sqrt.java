@@ -4,23 +4,23 @@ public class Sqrt {
     private static final double DEFAULT_PRECISION = 1e-8;
     private static final int MAX_STEPS = 1000;
 
-    private final double precision;
-    private final double arg;
+    private final double requiredPrecision;
+    private final double value;
 
     public Sqrt(double arg) {
         if (arg < 0.0) {
             throw new IllegalArgumentException("argument must be non-negative");
         }
-        this.arg = arg;
-        this.precision = DEFAULT_PRECISION;
+        this.value = arg;
+        this.requiredPrecision = DEFAULT_PRECISION;
     }
 
     public double mean(double x, double y) {
-        return (x + y) / 2.0;
+        return (x + y) * 0.5;
     }
 
     public boolean isAccurate(double guess, double x) {
-        return squaredError(guess, x) <= precision;
+        return computeSquaredError(guess, x) <= requiredPrecision;
     }
 
     public double nextApproximation(double guess, double x) {
@@ -35,7 +35,7 @@ public class Sqrt {
             return 0.0;
         }
 
-        double current = firstPositiveGuess(guess, x);
+        double current = getInitialGuess(guess, x);
         for (int step = 0; step < MAX_STEPS; step++) {
             if (isAccurate(current, x)) {
                 return current;
@@ -46,14 +46,14 @@ public class Sqrt {
     }
 
     public double calc() {
-        return iter(firstPositiveGuess(arg, arg), arg);
+        return iter(getInitialGuess(value, value), value);
     }
 
-    private double squaredError(double guess, double x) {
+    private double computeSquaredError(double guess, double x) {
         return Math.abs(guess * guess - x);
     }
 
-    private double firstPositiveGuess(double guess, double x) {
+    private double getInitialGuess(double guess, double x) {
         if (guess > 0.0) {
             return guess;
         }
